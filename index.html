@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nova">
+<meta name="theme-color" content="#05040a">
+<title>Nova · Neon Avatar</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-180.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="fx"></div>
+<div id="bubble" class="bubble"></div>
+<header id="top">
+  <div class="title"><span class="dot"></span>NOVA</div>
+  <div class="chips">
+    <button id="tiltBtn" class="chip" hidden aria-label="Tilt">Tilt</button>
+    <button id="muteBtn" class="chip" aria-label="Sound">🔊</button>
+  </div>
+</header>
+<div id="hint" class="hint">Tap me · Double-tap · Drag to spin · Pinch to zoom · Hold to pet</div>
+<nav id="dock">
+  <button data-open="apps"><span>🚀</span>Apps</button>
+  <button data-open="notes"><span>📝</span>Notes</button>
+  <button data-open="agenda"><span>📅</span>Agenda</button>
+  <button data-act="dance"><span>🕺</span>Dance</button>
+  <button data-act="theme"><span>🎨</span>Theme</button>
+</nav>
+
+<section id="sheet" class="sheet" aria-hidden="true">
+  <div class="grab"></div>
+  <div class="sheet-head"><h2 id="sheetTitle"></h2><button id="sheetClose" class="x" aria-label="Close">✕</button></div>
+  <div class="sheet-body">
+    <!-- APPS -->
+    <div class="pane" data-pane="apps">
+      <div id="appGrid" class="grid"></div>
+      <div class="row gap">
+        <button id="appAddToggle" class="btn">＋ Add launcher</button>
+        <button id="appEdit" class="btn ghost">Edit</button>
+      </div>
+      <form id="appForm" class="card" hidden>
+        <input id="appName" placeholder="Name (e.g. Venmo)" maxlength="24" required>
+        <input id="appUrl" placeholder="Link or scheme (e.g. venmo:// or https://…)" required autocapitalize="off" autocorrect="off" spellcheck="false">
+        <input id="appIcon" placeholder="Emoji (optional)" maxlength="4">
+        <button class="btn" type="submit">Save launcher</button>
+      </form>
+      <p class="fine">● verified iOS link &nbsp; ◌ best-effort (app must be installed; iOS may ask “Open in …?”)</p>
+    </div>
+    <!-- NOTES -->
+    <div class="pane" data-pane="notes">
+      <div class="card">
+        <textarea id="noteText" rows="3" placeholder="Type a note, or tap Dictate…"></textarea>
+        <div class="row gap">
+          <button id="dictBtn" class="btn pink">🎤 Dictate</button>
+          <button id="noteSave" class="btn">Save note</button>
+        </div>
+        <p id="dictMsg" class="fine"></p>
+      </div>
+      <div class="row gap"><button id="noteShareAll" class="btn ghost">Share all notes</button></div>
+      <ul id="noteList" class="list"></ul>
+    </div>
+    <!-- AGENDA -->
+    <div class="pane" data-pane="agenda">
+      <form id="evForm" class="card">
+        <input id="evTitle" placeholder="What? (e.g. Dentist)" maxlength="80" required>
+        <div class="row gap"><input id="evDate" type="date" required><input id="evTime" type="time" required></div>
+        <label class="row gap sel">Remind
+          <select id="evRemind"><option value="0">at time</option><option value="10" selected>10 min before</option><option value="30">30 min before</option><option value="60">1 hr before</option><option value="-1">no reminder</option></select>
+        </label>
+        <button class="btn" type="submit">Add to agenda</button>
+      </form>
+      <div class="row gap"><button id="evNext" class="btn ghost">🔈 What’s next?</button><button id="notifBtn" class="btn ghost" hidden>🔔 Allow alerts</button></div>
+      <h3>Today</h3><ul id="evToday" class="list"></ul>
+      <h3>Upcoming</h3><ul id="evUpcoming" class="list"></ul>
+      <p class="fine">Reminders here only fire while Nova is open. For alerts when the app is closed, tap 📆 on an item to add it to your iPhone Calendar.</p>
+    </div>
+  </div>
+</section>
+<div id="toast" class="toast"></div>
+<div id="nogl" class="nogl" hidden>WebGL isn’t available on this device.</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
